@@ -21,6 +21,10 @@ module.exports = {
     filename: './public/bundle.js'
   },
   resolve: {
+    root: __dirname,
+    alias:{
+      Clock: 'app/components/clock.js'
+    },
     extensions: ['', '.js', '.jsx']
   },
   module: {
