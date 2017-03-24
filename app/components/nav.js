@@ -17,7 +17,7 @@ const Nav = () => {
       </div>
       <div className="top-bar-right">
         <ul className="menu">
-          <li className="menu-text">Created by <a href="https://github.com/oburu" target="_blank">Augusto Solorzano</a></li>
+          <li className="menu-text">Created by <a href="https://github.com/oburu" target="_blank">Augs Solorzano</a></li>
         </ul>
       </div>
     </div>

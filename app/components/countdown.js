@@ -7,13 +7,35 @@ class Countdown extends Component{
     super(props);
 
     this.state = {
-      count:0
+      count:0,
+      countdownStatus: 'stopped'
     }
   }
 
-  handleSetCoundown(seconds){
+  componentDidUpdate(prevProps, prevState){
+    //just check if the state had changed, comparing with the previous state
+    if(this.state.countdownStatus !== prevState.countdownStatus){
+      switch (this.state.countdownStatus){
+        case 'started':
+          this.startTimer();
+          break;
+      }
+    }
+  }
+
+  startTimer(){
+    this.timer = setInterval(() => {
+      let newCount = this.state.count -1;
+      this.setState({
+        count: newCount >= 0 ? newCount : 0
+      });
+    }, 1000);
+  }
+
+  handleSetCountdown(seconds){
     this.setState({
-      count: seconds
+      count: seconds,
+      countdownStatus: 'started'
     });
   }
 
@@ -22,7 +44,7 @@ class Countdown extends Component{
     return(
       <div>
         <Clock totalSeconds={count}/>
-        <CountdownForm onSetCountdown = {this.handleSetCoundown.bind(this)}/>
+        <CountdownForm onSetCountdown = {this.handleSetCountdown.bind(this)}/>
       </div>
     )
   }
