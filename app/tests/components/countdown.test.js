@@ -12,7 +12,7 @@ describe('Countdown', () => {
   });
 
   describe('handleSetCountdown', () => {
-    // the done function is to let know mocha to wait until the seTimeout is over ;), other wise wouldn't work.
+    // the done function is to let know mocha to wait until the seTimeout is over (it is asynchonus);), other wise wouldn't work.
     it('Should set state to started and countdown', (done) => {
       let countdown = TestUtils.renderIntoDocument(<Countdown />);
       countdown.handleSetCountdown(10);
@@ -37,6 +37,31 @@ describe('Countdown', () => {
       },3001);
 
     });
+
+    it('Should pause countdown on paused status', (done)=>{
+      let countdown = TestUtils.renderIntoDocument(<Countdown />);
+      countdown.handleSetCountdown(3);
+      countdown.handleStatusChange('paused');
+
+      setTimeout(() => {
+        expect(countdown.state.count).toBe(3);
+        expect(countdown.state.countdownStatus).toBe('paused');
+        done();
+      },1001);
+    });
+
+    it('Should set countdown to zero on stopped status', (done)=>{
+      let countdown = TestUtils.renderIntoDocument(<Countdown />);
+      countdown.handleSetCountdown(2);
+      countdown.handleStatusChange('stopped');
+
+      setTimeout(() => {
+        expect(countdown.state.count).toBe(0);
+        expect(countdown.state.countdownStatus).toBe('stopped');
+        done();
+      },1001);
+    });
+
   });
 
 
